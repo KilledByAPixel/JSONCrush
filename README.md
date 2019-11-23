@@ -1,7 +1,7 @@
 # JSONCrush
 Compress JSON using JSCrush
 
-This simple system allows good compression of JSON strings that can be uri encoded without using much extra space. 
+This simple system allows good compression of uri encoded JSON strings. 
 
 No additional libraries are needed!
 

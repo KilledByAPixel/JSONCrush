@@ -10,15 +10,25 @@
 // @output_file_name ZzFx.micro.js
 // @js_externs 'function JSONCrush(object)', 'JSONUncrush(string)'
 // ==/ClosureCompiler==
-function JSONCrush(object)
+function JSONCrush(object, JSONStringify=true)
 {
-    let string = JSON.stringify(object);
+    let string = object;
+    if (JSONStringify)
+        string = JSON.stringify(object);
     
+    let safeChars = `-_.!~*'()`; // unescaped by encode uri component
     let Q=[];
-    for (let i=122;--i>=48;)((i>=65&&i<=90)||(i>=97&&i<=122)||i<=57)&&Q.push(String.fromCharCode(i));
+    for (let i=122;--i;)((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57)||safeChars.includes(String.fromCharCode(i)))&&Q.push(String.fromCharCode(i));
     
     let s, X, B, O, m, i, c, e, N, M, o, t, j, x, R;
 	s = string.replace(/([\r\n]|^)\s*\/\/.*|[\r\n]+\s*/g,'').replace(/\\/g,'\\\\')
+     
+    // swap out characters for lesser used ones that wont get escaped
+    s = s.replace(/[_']/g, function($1) { return $1 === "'" ? "_" : "'" });
+    s = s.replace(/[~"]/g, function($1) { return $1 === '"' ? "~" : '"' });
+    s = s.replace(/[!,]/g, function($1) { return $1 === ',' ? "!" : ',' });
+    s = s.replace(/[*:]/g, function($1) { return $1 === '*' ? ":" : '*' });
+    
     X=B=s.length/2
     O=m='';
 	i = s;
@@ -56,11 +66,13 @@ function JSONCrush(object)
 	}
     
     let crushed = {a:s, b:m};
-    return JSON.stringify(crushed);
+    s = JSON.stringify(crushed);
+    return s;
 }
 
-function JSONUncrush(string)
+function JSONUncrush(string, JSONParse=true)
 {
+    let s = string;
     let crushed = JSON.parse(string);
 
     let a = crushed.a;
@@ -70,7 +82,16 @@ function JSONUncrush(string)
         let d = a.split(b[c]);
         a=d.join(d.pop());
     }
+    
+    // swap back characters
+    s = a;
+    s = s.replace(/[*:]/g, function($1) { return $1 === '*' ? ":" : '*' });
+    s = s.replace(/[!,]/g, function($1) { return $1 === ',' ? "!" : ',' });
+    s = s.replace(/[~"]/g, function($1) { return $1 === '"' ? "~" : '"' });
+    s = s.replace(/[_']/g, function($1) { return $1 === "'" ? "_" : "'" });
 
-    let uncrushed = a;
-    return JSON.parse(uncrushed);
+    let uncrushed = s;
+    if (JSONParse)
+        uncrushed = JSON.parse(uncrushed);
+    return uncrushed;
 }

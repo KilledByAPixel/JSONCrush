@@ -1,16 +1,21 @@
 /////////////////////////////////////////////////////////////////////// 
-// JSONCrush by Frank Force [MIT]
+// JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 // Based on JSCrush - Javascript crusher by @aivopaas. [MIT] http://www.iteral.com/jscrush
 /////////////////////////////////////////////////////////////////////// 
 
 "use strict"; // strict mode
 
+// ==ClosureCompiler==
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// @output_file_name ZzFx.micro.js
+// @js_externs 'function JSONCrush(object)', 'JSONUncrush(string)'
+// ==/ClosureCompiler==
 function JSONCrush(object)
 {
     let string = JSON.stringify(object);
     
     let Q=[];
-    for (let i=122;--i;((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57))&&Q.push(String.fromCharCode(i)));
+    for (let i=122;--i>=48;)((i>=65&&i<=90)||(i>=97&&i<=122)||i<=57)&&Q.push(String.fromCharCode(i));
     
     let s, X, B, O, m, i, c, e, N, M, o, t, j, x, R;
 	s = string.replace(/([\r\n]|^)\s*\/\/.*|[\r\n]+\s*/g,'').replace(/\\/g,'\\\\')
@@ -20,7 +25,7 @@ function JSONCrush(object)
     
     for(let S=encodeURI(i).replace(/%../g,'i').length;;m=c+m)
     {
-		for(M=N=e=c=0,i=Q.length;!c&&--i;!~s.indexOf(Q[i])&&(c=Q[i]));
+		for(M=N=e=c=0,i=Q.length;!c&&--i;)!~s.indexOf(Q[i])&&(c=Q[i]);
 		if(!c)break;
 		if(O)
         {

@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+
+// CrushJSON by Frank Force [MIT]
+// Based on Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
+
+-->
+<html>
+<head>
+<title>JSONCrush Demo</title>
+</head>
+<body>
+<big>JSONCrush Demo - Compress JSON using JSCrush</big>
+<br>
+<br>This simple system allows good compression of JSON strings that can be uri encoded without using much extra space. No additional libraries are needed.
+<br><a href="JSONCrush.js" target="_blank">Download JSONCrush.js</a>
+<br>
+<br>
+<table><tr><td>
+Uncrushed:
+<br><textarea id=textarea_uncrushed cols=80 rows=20 placeholder="Paste JSON here."></textarea>
+<br>
+<br>Crushed:
+<br><textarea disabled id=textarea_crushed cols=80 rows=20></textarea>
+<br>
+<br><div id=div_size></div>
+</td><td>
+Uncrushed URI Encoded Component:
+<br><textarea disabled id=textarea_uncrushed_uri cols=80 rows=20></textarea>
+<br>
+<br>Crushed URI Encoded Component:
+<br><textarea disabled id=textarea_crushed_uri cols=80 rows=20></textarea>
+<br>
+<br><div id=div_size_uri></div>
+</td></tr></table>
+<script src="JSONCrush.js"></script>
+<script>
+
+"use strict"; // strict mode
+
+textarea_uncrushed.oninput=_=>
+{
+    textarea_crushed.value = JSONCrush(textarea_uncrushed.value);
+    let length1 =  textarea_uncrushed.value.length;
+    let length2 =  textarea_crushed.value.length
+    let size = 'Size Difference: ' + length1 + " to " + length2;
+    size += ' ' + (100*length2/length1).toFixed(2) + '%';
+    div_size.innerHTML = size;
+    
+    textarea_uncrushed_uri.value = encodeURIComponent(textarea_uncrushed.value);
+    textarea_crushed_uri.value = encodeURIComponent(textarea_crushed.value);
+    length1 =  textarea_uncrushed_uri.value.length;
+    length2 =  textarea_crushed_uri.value.length
+    size = 'URI Encoded Size Difference: ' + length1 + " to " + length2;
+    size += ' ' + (100*length2/length1).toFixed(2) + '%';
+    div_size_uri.innerHTML = size;
+}
+
+</script>
+</body>
+</html>

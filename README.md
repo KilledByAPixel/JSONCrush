@@ -7,7 +7,7 @@ No additional libraries are needed!
 
 # [TRY THE LIVE DEMO!](https://killedbyapixel.github.io/JSONCrush)
 
-CrushJSON by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
+JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 
 Based on Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
 

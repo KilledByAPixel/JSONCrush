@@ -5,29 +5,18 @@
 
 "use strict"; // strict mode
 
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// @output_file_name ZzFx.micro.js
-// @js_externs 'function JSONCrush(object)', 'JSONUncrush(string)'
-// ==/ClosureCompiler==
-function JSONCrush(object, JSONStringify=true)
+let JSONCrush = function(object, JSONStringify=true)
 {
-    let string = object;
-    if (JSONStringify)
-        string = JSON.stringify(object);
+    let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
     
-    let safeChars = `-_.!~*'()`; // unescaped by encode uri component
     let Q=[];
-    for (let i=122;--i;)((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57)||safeChars.includes(String.fromCharCode(i)))&&Q.push(String.fromCharCode(i));
+    let safeChars = `-_.!~*'()`; // unescaped by encode uri component
+    for (i=127;--i;)((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57)||safeChars.includes(String.fromCharCode(i)))&&Q.push(String.fromCharCode(i));
     
-    let s, X, B, O, m, i, c, e, N, M, o, t, j, x, R;
-	s = string.replace(/([\r\n]|^)\s*\/\/.*|[\r\n]+\s*/g,'').replace(/\\/g,'\\\\')
-     
-    // swap out characters for lesser used ones that wont get escaped
-    s = s.replace(/[_']/g, function($1) { return $1 === "'" ? "_" : "'" });
-    s = s.replace(/[~"]/g, function($1) { return $1 === '"' ? "~" : '"' });
-    s = s.replace(/[!,]/g, function($1) { return $1 === ',' ? "!" : ',' });
-    s = s.replace(/[*:]/g, function($1) { return $1 === '*' ? ":" : '*' });
+    let s = object;
+    if (JSONStringify)
+        s = JSON.stringify(object);
+    s = JSONCrushSwap(s);
     
     X=B=s.length/2
     O=m='';
@@ -65,33 +54,62 @@ function JSONCrush(object, JSONStringify=true)
 		s=s.split(e).join(c)+c+e
 	}
     
-    let crushed = {a:s, b:m};
-    s = JSON.stringify(crushed);
-    return s;
+    // find unused character
+    let highestCharCode = 128;
+    for(i = 0; i < s.length; ++i)
+    {
+        let c = s.charCodeAt(i);
+        if (c > highestCharCode)
+            highestCharCode = c;
+    }
+    ++highestCharCode;
+    
+    c = String.fromCharCode(highestCharCode);
+    let crushed = c + s + c + m;
+    return crushed;
 }
 
-function JSONUncrush(string, JSONParse=true)
+let JSONUncrush = function(string, JSONParse=true)
 {
-    let s = string;
-    let crushed = JSON.parse(string);
-
-    let a = crushed.a;
-    let b = crushed.b;
+    let c = string.split(string[0]);
+    let a = c[1];
+    let b = c[2];
     for(let c in b)
     {
         let d = a.split(b[c]);
         a=d.join(d.pop());
     }
     
-    // swap back characters
-    s = a;
-    s = s.replace(/[*:]/g, function($1) { return $1 === '*' ? ":" : '*' });
-    s = s.replace(/[!,]/g, function($1) { return $1 === ',' ? "!" : ',' });
-    s = s.replace(/[~"]/g, function($1) { return $1 === '"' ? "~" : '"' });
-    s = s.replace(/[_']/g, function($1) { return $1 === "'" ? "_" : "'" });
-
-    let uncrushed = s;
+    let uncrushed = JSONCrushSwap(a, 0);
     if (JSONParse)
         uncrushed = JSON.parse(uncrushed);
     return uncrushed;
+}
+
+let JSONCrushSwap = function(string, forward=true)
+{
+    function Swap(string, g)
+    {
+        let regex = new RegExp(`${(g[2]?g[2]:'')+g[0]}|${(g[3]?g[3]:'')+g[1]}`,'g');
+        return string.replace(regex, $1 => ( $1 === g[0] ? g[1] : g[0] ));
+    }
+
+    // swap out characters for lesser used ones that wont get escaped
+    let swapGroups = 
+    [
+        ['"', "'"],
+        ["':", "!"],
+        [",'", "~"],
+        ['}', ")", '\\', '\\'],
+        ['{', "(", '\\', '\\'],
+    ];
+    
+    if (forward)
+        for (let i=0; i<swapGroups.length;++i)
+            string = Swap(string, swapGroups[i]);
+    else
+        for (let i=swapGroups.length; i--;)
+            string = Swap(string, swapGroups[i]);
+        
+    return string;
 }

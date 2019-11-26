@@ -12,7 +12,14 @@ function JSONCrush(string)
     
     let Q=[];
     let safeChars = `-_.!~*'()`; // unescaped by encode uri component
-    for (i=127;--i;)((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57)||safeChars.includes(String.fromCharCode(i)))&&Q.push(String.fromCharCode(i));
+    for (i=127;--i;)
+    (
+        (i>=65&&i<=90)||
+        (i>=97&&i<=122)||
+        (i>=48&&i<=57)||
+        safeChars.includes(String.fromCharCode(i))
+    )
+    &&Q.push(String.fromCharCode(i));
     
     let s = JSONCrushSwap(string);
     

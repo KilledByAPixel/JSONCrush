@@ -55,14 +55,14 @@ function JSONCrush(object, JSONStringify=true)
 	}
     
     // split with String.fromCharCode(1) as a delimiter
-    s=s.replace(//g,'');
-    let crushed = s + '' + m;
+    s=s.replace(/\u0001/g,'');
+    let crushed = s + '\u0001' + m;
     return crushed;
 }
 
 function JSONUncrush(string, JSONParse=true)
 {
-    let c = string.split('');
+    let c = string.split('\u0001');
     let a = c[0];
     let b = c[1];
     for(let c in b)

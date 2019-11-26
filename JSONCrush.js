@@ -18,39 +18,39 @@ function JSONCrush(string)
     
     X=B=s.length/2
     O=m='';
-	i=s;
+    i=s;
     
     for(;;m=c+m)
     {
-		for(M=N=e=c=0,i=Q.length;!c&&--i;)!~s.indexOf(Q[i])&&(c=Q[i]);
-		if(!c)break;
-		if(O)
+        for(M=N=e=c=0,i=Q.length;!c&&--i;)!~s.indexOf(Q[i])&&(c=Q[i]);
+        if(!c)break;
+        if(O)
         {
-			o={};
-			for(x in O)
-				for(j=s.indexOf(x),o[x]=0;~j;o[x]++)j=s.indexOf(x,j+x.length);
-			O=o;
-		}
+            o={};
+            for(x in O)
+                for(j=s.indexOf(x),o[x]=0;~j;o[x]++)j=s.indexOf(x,j+x.length);
+            O=o;
+        }
         else for(O=o={},t=1;X;t++)
-				for(X=i=0;++i<s.length-t;)
-					if(!o[x=s.substr(j=i,t)])
-						if(~(j=s.indexOf(x,j+t)))
-							for(X=t,o[x]=1;~j;o[x]++)j=s.indexOf(x,j+t);
-		for(let x in O) 
+                for(X=i=0;++i<s.length-t;)
+                    if(!o[x=s.substr(j=i,t)])
+                        if(~(j=s.indexOf(x,j+t)))
+                            for(X=t,o[x]=1;~j;o[x]++)j=s.indexOf(x,j+t);
+        for(let x in O) 
         {
-			j=ByteLength(x);
-			if(j=(R=O[x])*j-j-(R+1)*ByteLength(c))
-				(j>M||j==M&&R>N)&&(M=j,N=R,e=x);
-			if(j<1)
-				delete O[x]
-		}
-		o={};
-		for(let x in O)
-			o[x.split(e).join(c)]=1;
-		O=o;
-		if(!e)break;
-		s=s.split(e).join(c)+c+e
-	}
+            j=ByteLength(x);
+            if(j=(R=O[x])*j-j-(R+1)*ByteLength(c))
+                (j>M||j==M&&R>N)&&(M=j,N=R,e=x);
+            if(j<1)
+                delete O[x]
+        }
+        o={};
+        for(let x in O)
+            o[x.split(e).join(c)]=1;
+        O=o;
+        if(!e)break;
+        s=s.split(e).join(c)+c+e
+    }
     
     // split with String.fromCharCode(1) as a delimiter
     s=s.replace(/\u0001/g,'');
@@ -90,13 +90,13 @@ function JSONCrushSwap(string, forward=true)
         ['}', ")", '\\', '\\'],
         ['{', "(", '\\', '\\'],
     ];
-    
+
     if (forward)
         for (let i=0; i<swapGroups.length;++i)
             string = Swap(string, swapGroups[i]);
     else
         for (let i=swapGroups.length; i--;)
             string = Swap(string, swapGroups[i]);
-        
+
     return string;
 }

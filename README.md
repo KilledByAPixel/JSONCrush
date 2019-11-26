@@ -17,7 +17,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 * Call encodeURIComponent to make the string safe for urls.
 * To decode the string use JSONUncrush.
 
-# Example (short string)
+# Example #1 (short string)
 
 ### JSON - 103 bytes
 

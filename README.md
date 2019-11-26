@@ -12,6 +12,13 @@ No additional libraries are needed and minified code is under 2k!
 
 # [TRY THE LIVE DEMO!](https://killedbyapixel.github.io/JSONCrush)
 
+# How to Use
+
+* Include JSONCrush.js or JSONCrush.min.js in your script
+* Pass a JSON string to JSONCrush to compress it.
+* Call encodeURIComponent to make it web safe.
+* To decode use decodeURIComponent followed by JSONUncrush.
+
 # Example
 
 ### JSON - 103 bytes

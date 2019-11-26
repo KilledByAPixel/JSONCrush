@@ -40,6 +40,10 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * `XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA`
 
+### Compare with [rison](https://github.com/Nanonid/rison) encodeURIComponent - 108 bytes
+
+* `(class%3Amath%2Cstudents%3A!((age%3A17%2Cname%3AJack)%2C(age%3A16%2Cname%3AJill)%2C(age%3A16%2Cname%3ASue)))`
+
 # Example #2 (long string used by [ZzArt](https://github.com/KilledByAPixel/ZzArt))
 
 ### JSON - 3122 bytes

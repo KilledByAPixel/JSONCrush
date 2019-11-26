@@ -14,17 +14,25 @@ No additional libraries are needed and minified code is under 2k!
 
 # Example
 
-### JSON - 103 chars
+### JSON - 103 bytes
 
 * {"students":[{"name":"Jack","age":17},{"name":"Jill","age":16},{"name":"Sue","age":16}],"class":"math"}
 
-### URI Encoded Component - 199 chars
+### URI Encoded Component - 199 bytes
 
 * %7B%22students%22%3A%5B%7B%22name%22%3A%22Jack%22%2C%22age%22%3A17%7D%2C%7B%22name%22%3A%22Jill%22%2C%22age%22%3A16%7D%2C%7B%22name%22%3A%22Sue%22%2C%22age%22%3A16%7D%5D%2C%22class%22%3A%22math%22%7D
 
-### JSONCrushed URI Encoded Component - 91 chars
+### JSONCrushed URI Encoded Component - 91 bytes!
 
 * %C2%81('students!%5B*Jack-7)%2C*Jill-6)%2C*Sue-6)%5D~class!'math')*('name!'-'~age!1%C2%81-*
+
+### Compare with [LZ-String](https://github.com/pieroxy/lz-string) compressToEncodedURIComponent - 112 bytes
+
+N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA
+
+### Compare with [json-url](https://github.com/masotime/json-url) with lzma compression - 102 bytes
+
+XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA
 
 # License
 

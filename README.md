@@ -38,6 +38,6 @@ No additional libraries are needed and minified code is under 2k!
 
 JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 
-Based on Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
+Using Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
 
 GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com

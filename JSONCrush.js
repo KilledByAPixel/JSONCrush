@@ -5,7 +5,7 @@
 
 "use strict"; // strict mode
 
-let JSONCrush = function(object, JSONStringify=true)
+function JSONCrush(object, JSONStringify=true)
 {
     let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
     
@@ -54,26 +54,17 @@ let JSONCrush = function(object, JSONStringify=true)
 		s=s.split(e).join(c)+c+e
 	}
     
-    // find unused character
-    let highestCharCode = 128;
-    for(i = 0; i < s.length; ++i)
-    {
-        let c = s.charCodeAt(i);
-        if (c > highestCharCode)
-            highestCharCode = c;
-    }
-    ++highestCharCode;
-    
-    c = String.fromCharCode(highestCharCode);
-    let crushed = c + s + c + m;
+    // split with String.fromCharCode(1) as a delimiter
+    s=s.replace(//g,'');
+    let crushed = s + '' + m;
     return crushed;
 }
 
-let JSONUncrush = function(string, JSONParse=true)
+function JSONUncrush(string, JSONParse=true)
 {
-    let c = string.split(string[0]);
-    let a = c[1];
-    let b = c[2];
+    let c = string.split('');
+    let a = c[0];
+    let b = c[1];
     for(let c in b)
     {
         let d = a.split(b[c]);
@@ -86,7 +77,7 @@ let JSONUncrush = function(string, JSONParse=true)
     return uncrushed;
 }
 
-let JSONCrushSwap = function(string, forward=true)
+function JSONCrushSwap(string, forward=true)
 {
     function Swap(string, g)
     {

@@ -6,6 +6,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 * The JSCrush algorithm helps to eliminate repeated substrings.
 * This can be used to compress any type of string but is optimized for uri encoded JSON.
 * The algorithm is exponentially slower for long strings (>5000 characters).
+* The character \u0001 (start of heading) is used as a delimiter and will be removed if it appears.
 * No additional libraries are needed and minified code is under 2k!
 
 # [TRY THE LIVE DEMO!](https://killedbyapixel.github.io/JSONCrush)

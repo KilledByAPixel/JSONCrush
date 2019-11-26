@@ -54,12 +54,12 @@ function JSONCrush(string)
     // split with String.fromCharCode(1) as a delimiter
     s=s.replace(/\u0001/g,'');
     let crushed = s + '\u0001' + m;
-    return crushed;
+    return encodeURIComponent(crushed);
 }
 
 function JSONUncrush(string)
 {
-    let c = string.split('\u0001');
+    let c = decodeURIComponent(string).split('\u0001');
     let a = c[0];
     let b = c[1];
     for(let c in b)

@@ -22,24 +22,13 @@ GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
 <br><a href="JSONCrush.min.js" target="_blank">Download JSONCrush.min.js</a>
 <br>
 <br>
-<table><tr><td>
 JSON:
 <br><textarea id=textarea_JSON cols=80 rows=10 placeholder="Paste JSON here."></textarea>
 <br>
 <br>Crushed:
 <br><textarea disabled id=textarea_crushed cols=80 rows=10></textarea>
-<br>
 <br><div id=div_size></div>
-</td><td>
-URI Encoded Component:
-<br><textarea disabled id=textarea_uri cols=80 rows=10></textarea>
-<br>
-<br>Crushed URI Encoded Component:
-<br><textarea disabled id=textarea_crushed_uri cols=80 rows=10></textarea>
-<br>
-<br><div id=div_size_uri></div>
-</td></tr></table>
-<br>Uncrushed URI Encoded Component:
+<br>Uncrushed:
 <br><textarea disabled id=textarea_uncrushed cols=80 rows=10></textarea>
 <br><div id=div_uncrushed_check></div>
 <script src="JSONCrush.js"></script>
@@ -58,16 +47,7 @@ textarea_JSON.oninput=_=>
         size += ' ' + (100*length2/length1).toFixed(2) + '%';
         div_size.innerHTML = size;
 
-        textarea_uri.value = encodeURIComponent(textarea_JSON.value);
-        textarea_crushed_uri.value = encodeURIComponent(textarea_crushed.value);
-
-        length1 =  textarea_uri.value.length;
-        length2 =  textarea_crushed_uri.value.length
-        size = 'URI Encoded Size Difference: ' + length1 + " to " + length2;
-        size += ' ' + (100*length2/length1).toFixed(2) + '%';
-        div_size_uri.innerHTML = size;
-
-        let uncrushed = JSONUncrush(decodeURIComponent(textarea_crushed.value));
+        let uncrushed = JSONUncrush(textarea_crushed.value);
         textarea_uncrushed.value = uncrushed;
 
         let isGood = uncrushed == textarea_JSON.value;

@@ -26,7 +26,7 @@ No additional libraries are needed and minified code is under 2k!
 
 * %C2%81('students!%5B*Jack-7)%2C*Jill-6)%2C*Sue-6)%5D~class!'math')*('name!'-'~age!1%C2%81-*
 
-### Compare with [LZ-String](https://github.com/pieroxy/lz-string) compressToEncodedURIComponent - 112 bytes
+### Compare with [lz-string](https://github.com/pieroxy/lz-string) compressToEncodedURIComponent - 112 bytes
 
 * N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA
 

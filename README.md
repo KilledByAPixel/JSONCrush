@@ -22,7 +22,7 @@ No additional libraries are needed and minified code is under 2k!
 
 * %7B%22students%22%3A%5B%7B%22name%22%3A%22Jack%22%2C%22age%22%3A17%7D%2C%7B%22name%22%3A%22Jill%22%2C%22age%22%3A16%7D%2C%7B%22name%22%3A%22Sue%22%2C%22age%22%3A16%7D%5D%2C%22class%22%3A%22math%22%7D
 
-### JSONCrushed URI Encoded Component - 82 bytes!
+### JSONCrush URI Encoded Component - 82 bytes!
 
 * ('students!%5B*Jack-7)%2C*Jill-6)%2C*Sue-6)%5D~class!'math')*('name!'-'~age!1%01-*
 

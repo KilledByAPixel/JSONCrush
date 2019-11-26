@@ -30,7 +30,7 @@ No additional libraries are needed and minified code is under 2k!
 
 * N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA
 
-### Compare with [json-url](https://github.com/masotime/json-url) with lzma compression - 102 bytes
+### Compare with [json-url](https://github.com/masotime/json-url) using lzma compression - 102 bytes
 
 * XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA
 

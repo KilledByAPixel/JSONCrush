@@ -51,7 +51,7 @@ textarea_JSON.oninput=_=>
 {
     try
     {
-        textarea_crushed.value = JSONCrush(textarea_JSON.value, false);
+        textarea_crushed.value = JSONCrush(textarea_JSON.value);
         let length1 =  textarea_JSON.value.length;
         let length2 =  textarea_crushed.value.length
         let size = 'Size Difference: ' + length1 + " to " + length2;
@@ -67,7 +67,7 @@ textarea_JSON.oninput=_=>
         size += ' ' + (100*length2/length1).toFixed(2) + '%';
         div_size_uri.innerHTML = size;
 
-        let uncrushed = JSONUncrush(decodeURIComponent(textarea_crushed.value), false);
+        let uncrushed = JSONUncrush(decodeURIComponent(textarea_crushed.value));
         textarea_uncrushed.value = uncrushed;
 
         let isGood = uncrushed == textarea_JSON.value;

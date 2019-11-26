@@ -5,7 +5,7 @@
 
 "use strict"; // strict mode
 
-function JSONCrush(object, JSONStringify=true)
+function JSONCrush(string)
 {
     let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
     
@@ -13,10 +13,7 @@ function JSONCrush(object, JSONStringify=true)
     let safeChars = `-_.!~*'()`; // unescaped by encode uri component
     for (i=127;--i;)((i>=65&&i<=90)||(i>=97&&i<=122)||(i>=48&&i<=57)||safeChars.includes(String.fromCharCode(i)))&&Q.push(String.fromCharCode(i));
     
-    let s = object;
-    if (JSONStringify)
-        s = JSON.stringify(object);
-    s = JSONCrushSwap(s);
+    let s = JSONCrushSwap(string);
     
     X=B=s.length/2
     O=m='';
@@ -60,7 +57,7 @@ function JSONCrush(object, JSONStringify=true)
     return crushed;
 }
 
-function JSONUncrush(string, JSONParse=true)
+function JSONUncrush(string)
 {
     let c = string.split('\u0001');
     let a = c[0];
@@ -72,8 +69,6 @@ function JSONUncrush(string, JSONParse=true)
     }
     
     let uncrushed = JSONCrushSwap(a, 0);
-    if (JSONParse)
-        uncrushed = JSON.parse(uncrushed);
     return uncrushed;
 }
 

@@ -13,7 +13,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * Include JSONCrush.js or JSONCrush.min.js in your script
 * Pass a JSON string to JSONCrush to compress it.
-* The crushed string is safe to use in urls.
+* Call encodeURIComponent to make the string safe for urls.
 * To decode the string use JSONUncrush.
 
 # Example

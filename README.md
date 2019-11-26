@@ -1,14 +1,11 @@
-# JSONCrush
+# JSONCrush - Compress JSON into URI friendly strings
 
-This simple system allows good compression of uri encoded JSON strings using the JSCrush algorithm.
+This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm.
 
-Strings are processed to swap out common json characters with ones that won't be escaped by encodeURIComponent.
-
-The JSCrush algorithm helps to eliminate repeated substrings.
-
-This can be used to compress any type of string but is optimized for uri encoded JSON.
-
-No additional libraries are needed and minified code is under 2k!
+* Strings are processed to swap out common json characters with ones that won't be escaped by encodeURIComponent.
+* The JSCrush algorithm helps to eliminate repeated substrings.
+* This can be used to compress any type of string but is optimized for uri encoded JSON.
+* No additional libraries are needed and minified code is under 2k!
 
 # [TRY THE LIVE DEMO!](https://killedbyapixel.github.io/JSONCrush)
 

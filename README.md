@@ -18,6 +18,11 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 * Call encodeURIComponent to make the string safe for urls.
 * To decode the string use JSONUncrush.
 
+# Why?
+
+* To compress longish (5000 characters or less) strings so they can be shared and bookmarked easily.
+* My main use case for this is [ZzArt](https://github.com/KilledByAPixel/ZzArt) to share json heavy links.
+
 # Example #1 (short string)
 
 ### JSON - 103 bytes

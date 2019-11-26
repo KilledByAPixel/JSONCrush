@@ -28,11 +28,11 @@ No additional libraries are needed and minified code is under 2k!
 
 ### Compare with [LZ-String](https://github.com/pieroxy/lz-string) compressToEncodedURIComponent - 112 bytes
 
-N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA
+* N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA
 
 ### Compare with [json-url](https://github.com/masotime/json-url) with lzma compression - 102 bytes
 
-XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA
+* XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA
 
 # License
 

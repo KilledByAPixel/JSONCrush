@@ -39,7 +39,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA
 
-# Example #2 (long string)
+# Example #2 (long string used by [ZzArt](https://github.com/KilledByAPixel/ZzArt))
 
 ### JSON - 3122 bytes
 

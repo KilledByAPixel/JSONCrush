@@ -18,12 +18,12 @@ function JSONCrush(string)
     let safeCharacters = `-_.!~*'()`;
     for (let i=127;--i;)
     (
-        (i>=65&&i<=90)||
-        (i>=97&&i<=122)||
-        (i>=48&&i<=57)||
+        (i>=48&&i<=57) || // 0-9
+        (i>=65&&i<=90) || // A-Z
+        (i>=97&&i<=122)|| // a-z
         safeCharacters.includes(String.fromCharCode(i))
     )
-    &&Q.push(String.fromCharCode(i));
+    && Q.push(String.fromCharCode(i));
     
     // JSCrush Algorithm (remove repeated substrings)
     let ByteLength=string=>encodeURI(string).replace(/%../g,'i').length;
@@ -76,7 +76,10 @@ function JSONUncrush(string)
     let a = splitString[0];
     let b = splitString[1];
     for(let c in b)
-        a=d.join(a.split(b[c]).pop());
+    {
+        let d = a.split(b[c]);
+        a=d.join(d).pop();
+    }
     
     // unswap the json characters in reverse direction
     return JSONCrushSwap(a, 0);

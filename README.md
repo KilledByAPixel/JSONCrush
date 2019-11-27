@@ -37,7 +37,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * `('students!%5B*Jack-7)%2C*Jill-6)%2C*Sue-6)%5D~class!'math')*('name!'-'~age!1%01-*`
 
-### Compare with base64 encoded URI component - 138 bytes
+### Compare with base64 encoded - 138 bytes
 
 * `eyJzdHVkZW50cyI6W3sibmFtZSI6IkphY2siLCJhZ2UiOjE3fSx7Im5hbWUiOiJKaWxsIiwiYWdlIjoxNn0seyJuYW1lIjoiU3VlIiwiYWdlIjoxNn1dLCJjbGFzcyI6Im1hdGgifQ`
 

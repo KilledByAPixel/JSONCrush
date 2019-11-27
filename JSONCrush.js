@@ -29,7 +29,7 @@ function JSONCrush(string)
     let ByteLength=string=>encodeURI(string).replace(/%../g,'i').length;
     let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
     X=B=s.length/2;
-    O=m='';
+    m='';
     while(true)
     {
         for(M=N=e=c=0,i=Q.length;!c&&--i;)!~s.indexOf(Q[i])&&(c=Q[i]);

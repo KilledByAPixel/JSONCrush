@@ -64,11 +64,16 @@ function JSONCrush(string)
     }
     
     // use \u0001 as a delimiter between JSCrush parts 
-    return s + '\u0001' + m;
+    s = s + '\u0001' + m;
+    
+    // encode URI
+    return encodeURIComponent(s);
 }
 
 function JSONUncrush(string)
 {
+    // string must be a decoded URI component, searchParams.get() does this automatically
+
     // unsplit the string
     let splitString = string.split('\u0001');
     

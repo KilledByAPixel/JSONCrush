@@ -7,30 +7,33 @@
 
 function JSONCrush(string)
 {
-    let ByteLength=string=>encodeURI(string).replace(/%../g,'i').length;
-    let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
+    // remove \u0001 if it is found in the string so it can be used as a delimiter
+    let s = string.replace(/\u0001/g,'');
     
+    // swap out common json characters
+    s = JSONCrushSwap(s);
+    
+    // create a string of characters that will not be escaped by encodeURIComponent
     let Q=[];
-    let safeChars = `-_.!~*'()`; // unescaped by encode uri component
-    for (i=127;--i;)
+    let safeCharacters = `-_.!~*'()`;
+    for (let i=127;--i;)
     (
         (i>=65&&i<=90)||
         (i>=97&&i<=122)||
         (i>=48&&i<=57)||
-        safeChars.includes(String.fromCharCode(i))
+        safeCharacters.includes(String.fromCharCode(i))
     )
     &&Q.push(String.fromCharCode(i));
     
-    let s = JSONCrushSwap(string);
-    
-    X=B=s.length/2
+    // JSCrush Algorithm (remove repeated substrings)
+    let ByteLength=string=>encodeURI(string).replace(/%../g,'i').length;
+    let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
+    X=B=s.length/2;
     O=m='';
-    i=s;
-    
-    for(;;m=c+m)
+    while(true)
     {
         for(M=N=e=c=0,i=Q.length;!c&&--i;)!~s.indexOf(Q[i])&&(c=Q[i]);
-        if(!c)break;
+        if(!c) break;
         if(O)
         {
             o={};
@@ -55,39 +58,32 @@ function JSONCrush(string)
         for(let x in O)
             o[x.split(e).join(c)]=1;
         O=o;
-        if(!e)break;
+        if(!e) break;
         s=s.split(e).join(c)+c+e
+        m=c+m;
     }
     
-    // split with String.fromCharCode(1) as a delimiter
-    s=s.replace(/\u0001/g,'');
-    let crushed = s + '\u0001' + m;
-    return crushed;
+    // use \u0001 as a delimiter between JSCrush parts 
+    return s + '\u0001' + m;
 }
 
 function JSONUncrush(string)
 {
-    let c = string.split('\u0001');
-    let a = c[0];
-    let b = c[1];
-    for(let c in b)
-    {
-        let d = a.split(b[c]);
-        a=d.join(d.pop());
-    }
+    // unsplit the string
+    let splitString = string.split('\u0001');
     
-    let uncrushed = JSONCrushSwap(a, 0);
-    return uncrushed;
+    // JSUncrush algorithm
+    let a = splitString[0];
+    let b = splitString[1];
+    for(let c in b)
+        a=d.join(a.split(b[c]).pop());
+    
+    // unswap the json characters in reverse direction
+    return JSONCrushSwap(a, 0);
 }
 
 function JSONCrushSwap(string, forward=true)
 {
-    function Swap(string, g)
-    {
-        let regex = new RegExp(`${(g[2]?g[2]:'')+g[0]}|${(g[3]?g[3]:'')+g[1]}`,'g');
-        return string.replace(regex, $1 => ( $1 === g[0] ? g[1] : g[0] ));
-    }
-
     // swap out characters for lesser used ones that wont get escaped
     let swapGroups = 
     [
@@ -97,7 +93,14 @@ function JSONCrushSwap(string, forward=true)
         ['}', ")", '\\', '\\'],
         ['{', "(", '\\', '\\'],
     ];
+    
+    function Swap(string, g)
+    {
+        let regex = new RegExp(`${(g[2]?g[2]:'')+g[0]}|${(g[3]?g[3]:'')+g[1]}`,'g');
+        return string.replace(regex, $1 => ( $1 === g[0] ? g[1] : g[0] ));
+    }
 
+    // need to be able to swap characters in reverse direction for uncrush
     if (forward)
         for (let i=0; i<swapGroups.length;++i)
             string = Swap(string, swapGroups[i]);

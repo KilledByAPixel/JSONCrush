@@ -37,17 +37,21 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * `('students!%5B*Jack-7)%2C*Jill-6)%2C*Sue-6)%5D~class!'math')*('name!'-'~age!1%01-*`
 
+### Compare with base64 encoded URI component 135 bytes
+
+* `eyJzdHVkZW50cyI6W3sibmFtZSI6IkphY2siLCJhZ2UiOjE3fSx7Im5hbWUiOiJKaWxsIiwiYWdlIjoxNn0seyJuYW1lIjoiU3VlIiwiYWdlIjoxNn1dLCJjbGFzcyI6Im1hdGgifQ%3D%3D`
+
 ### Compare with [lz-string](https://github.com/pieroxy/lz-string) compressToEncodedURIComponent - 112 bytes
 
 * `N4IgzgLgrgJgpgOwmEAuA2qBBDAtnNEAKWwGMBrEAGhGwHMDUBGAdgF8qs9HiBLAG37VaDNEwBsHLvkIBlKARr1GEtgF0apftjApUIXNggALEGyA`
 
-### Compare with [json-url](https://github.com/masotime/json-url) lzma compression - 102 bytes
-
-* `XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA`
-
 ### Compare with [rison](https://github.com/Nanonid/rison) encodeURIComponent - 108 bytes
 
 * `(class%3Amath%2Cstudents%3A!((age%3A17%2Cname%3AJack)%2C(age%3A16%2Cname%3AJill)%2C(age%3A16%2Cname%3ASue)))`
+
+### Compare with [json-url](https://github.com/masotime/json-url) lzma compression - 102 bytes
+
+* `XQAAAAJFAAAAAAAAAABBKgpnQ92WP4KxyTTsJxd-yINVbdp6KNXjexeyXFUtdZzJEFmXfd4HbreByHRJ7Nv-aehaORBt6sv_9IjAAA`
 
 # Example #2 (long string used by [ZzArt](https://github.com/KilledByAPixel/ZzArt))
 

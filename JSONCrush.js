@@ -78,7 +78,7 @@ function JSONUncrush(string)
     for(let c in b)
     {
         let d = a.split(b[c]);
-        a=d.join(d).pop();
+        a=d.join(d.pop());
     }
     
     // unswap the json characters in reverse direction

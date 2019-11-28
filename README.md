@@ -21,7 +21,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 # Why?
 
-* To compress longish (5000 characters or less) strings so they can be shared and bookmarked easily.
+* To compress longish strings (~5000 characters) so they can be shared and bookmarked easily.
 * My main use case for this is [ZzArt](https://github.com/KilledByAPixel/ZzArt) to share json heavy links.
 
 # Example #1 (short string)

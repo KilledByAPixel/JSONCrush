@@ -1,4 +1,4 @@
-# JSONCrush - Compress JSON into URI friendly strings
+# JSONCrush - Compress JSON into URL friendly strings
 
 This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm.
 

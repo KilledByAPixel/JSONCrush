@@ -1,0 +1,31 @@
+{
+  "name": "jsoncrush",
+  "version": "1.0.0",
+  "description": "This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm.",
+  "main": "JSONCrush.js",
+  "scripts": {
+    "build": "yarn build:es2015 && yarn build:esm && yarn build:cjs && yarn build:umd && yarn build:min",
+    "build:es2015": "tsc --module es2015 --target es2015 --outDir dist/es2015",
+    "build:esm": "tsc --module es2015 --target es5 --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs",
+    "build:umd": "rollup --config",
+    "build:min": "uglifyjs --compress --mangle --screw-ie8 --comments -o dist/JSONCrush.min.js -- dist/umd/JSONCrush.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KilledByAPixel/JSONCrush.git"
+  },
+  "author": "Frank Force",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KilledByAPixel/JSONCrush/issues"
+  },
+  "homepage": "https://github.com/KilledByAPixel/JSONCrush#readme",
+  "devDependencies": {
+    "rollup": "^1.27.5",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "typescript": "^3.7.2",
+    "uglify-js": "^3.7.0"
+  }
+}

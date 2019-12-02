@@ -11,6 +11,21 @@ function JSONCrush(string)
     {
         // JSCrush Algorithm (remove repeated substrings)
         const ByteLength = string=>encodeURI(string).replace(/%../g,'i').length;
+        const HasUnmatchedSurrogate = string=>
+        {
+            let w1 = 0;
+            for(let i = 0; i < string.length; ++i)
+            {
+                let code = string.charCodeAt(i);
+                let w2 = code >= 0xDC00 && code <= 0xDFFF;
+                if (w1 && !w2 || !w1 && w2)
+                    return true;
+                w1 = code >= 0xD800 && code <= 0xDBFF;
+            }
+            
+            return w1;
+        }
+        
         const maxSubstringLength = 50; // speed it up by limiting max length
         let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
         let Q = characters;
@@ -32,11 +47,12 @@ function JSONCrush(string)
             }
             else for (O=o={},t=1;X&&t<maxSubstringLength;t++)
                     for (X=i=0;++i<s.length-t;)
-                        if (!o[x=s.substr(j=i,t)])
-                            if (x.charCodeAt(0) < 0xD800) // skip surrogate pairs
+                        if (!HasUnmatchedSurrogate(x=s.substr(j=i,t)))
+                        if (!HasUnmatchedSurrogate(x=s.substr(j=i,t)))
+                            if (!o[x])
                                 if (~(j=s.indexOf(x,j+t)))
-                                    for (X=t,o[x]=1;~j;o[x]++)
-                                        j=s.indexOf(x,j+t);
+                                        for (X=t,o[x]=1;~j;o[x]++)
+                                            j=s.indexOf(x,j+t);
             for (let x in O) 
             {
                 j=ByteLength(x);

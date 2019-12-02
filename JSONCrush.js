@@ -10,35 +10,39 @@ function JSONCrush(string)
     const JSCrush=(string, characters)=>
     {
         // JSCrush Algorithm (remove repeated substrings)
-        const ByteLength=string=>encodeURI(string).replace(/%../g,'i').length;
-        let maxSubstringLength = 50; // speed it up by limiting max length
+        const ByteLength = string=>encodeURI(string).replace(/%../g,'i').length;
+        const maxSubstringLength = 50; // speed it up by limiting max length
         let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
         let Q = characters;
         let s = string;
-        X=1;
-        m='';
+        X = 1;
+        m = '';
         while(true)
         {
-            for(M=N=e=c=0,i=Q.length;!c&&i--;)!~s.indexOf(Q[i])&&(c=Q[i]);
-            if(!c) break;
-            if(O)
+            for (M=N=e=c=0,i=Q.length;!c&&i--;)
+                !~s.indexOf(Q[i])&&(c=Q[i]);
+            if (!c) break;
+            if (O)
             {
                 o={};
-                for(x in O)
-                    for(j=s.indexOf(x),o[x]=0;~j;o[x]++)j=s.indexOf(x,j+x.length);
+                for (x in O)
+                    for (j=s.indexOf(x),o[x]=0;~j;o[x]++)
+                        j=s.indexOf(x,j+x.length);
                 O=o;
             }
-            else for(O=o={},t=1;X&&t<maxSubstringLength;t++)
-                    for(X=i=0;++i<s.length-t;)
-                        if(!o[x=s.substr(j=i,t)])
-                            if(~(j=s.indexOf(x,j+t)))
-                                for(X=t,o[x]=1;~j;o[x]++)j=s.indexOf(x,j+t);
-            for(let x in O) 
+            else for (O=o={},t=1;X&&t<maxSubstringLength;t++)
+                    for (X=i=0;++i<s.length-t;)
+                        if (!o[x=s.substr(j=i,t)])
+                            if (x.charCodeAt(0) < 0xD800) // skip surrogate pairs
+                                if (~(j=s.indexOf(x,j+t)))
+                                    for (X=t,o[x]=1;~j;o[x]++)
+                                        j=s.indexOf(x,j+t);
+            for (let x in O) 
             {
                 j=ByteLength(x);
-                if(j=(R=O[x])*j-j-(R+1)*ByteLength(c))
+                if (j=(R=O[x])*j-j-(R+1)*ByteLength(c))
                     (j>M||j==M&&R>N)&&(M=j,N=R,e=x);
-                if(j<1)
+                if (j<1)
                     delete O[x]
             }
             o={};
@@ -60,11 +64,12 @@ function JSONCrush(string)
     string = JSONCrushSwap(string);
     
     // create a string of characters that will not be escaped by encodeURIComponent
-    let characters=[];
+    let characters = [];
     const unescapedCharacters = `-_.!~*'()`;
-    for (let i=127;--i;)
+    for (let i=127; --i;)
     {
-        if (
+        if 
+        (
             (i>=48&&i<=57) || // 0-9
             (i>=65&&i<=90) || // A-Z
             (i>=97&&i<=122)|| // a-z
@@ -88,7 +93,7 @@ function JSONCrush(string)
     if (allUsed)
     {
         // use extended set if all the unescaped ones are used
-        for (let i=2;i<255;++i)
+        for (let i=2; i<255; ++i)
         {
             let c = String.fromCharCode(i);
             if (c!='\\' && !characters.includes(c))
@@ -97,10 +102,10 @@ function JSONCrush(string)
     }
     
     // crush with JS crush
-    let crushed = JSCrush(string, characters);
+    const crushed = JSCrush(string, characters);
     
     // use \u0001 as a delimiter between JSCrush parts 
-    let crushedString = crushed.a + '\u0001' + crushed.b;
+    const crushedString = crushed.a + '\u0001' + crushed.b;
     
     // encode URI
     return encodeURIComponent(crushedString);
@@ -111,7 +116,7 @@ function JSONUncrush(string)
     // string must be a decoded URI component, searchParams.get() does this automatically
 
     // unsplit the string
-    let splitString = string.split('\u0001');
+    const splitString = string.split('\u0001');
     
     // JSUncrush algorithm
     let a = splitString[0];
@@ -119,7 +124,7 @@ function JSONUncrush(string)
     for(let c in b)
     {
         let d = a.split(b[c]);
-        a=d.join(d.pop());
+        a = d.join(d.pop());
     }
     
     // unswap the json characters in reverse direction
@@ -138,15 +143,15 @@ function JSONCrushSwap(string, forward=true)
         ['{', "(", '\\', '\\'],
     ];
     
-    function Swap(string, g)
+    const Swap=(string, g)=>
     {
         let regex = new RegExp(`${(g[2]?g[2]:'')+g[0]}|${(g[3]?g[3]:'')+g[1]}`,'g');
-        return string.replace(regex, $1 => ( $1 === g[0] ? g[1] : g[0] ));
+        return string.replace(regex, $1 => ($1 === g[0] ? g[1] : g[0]));
     }
 
     // need to be able to swap characters in reverse direction for uncrush
     if (forward)
-        for (let i=0; i<swapGroups.length;++i)
+        for (let i=0; i<swapGroups.length; ++i)
             string = Swap(string, swapGroups[i]);
     else
         for (let i=swapGroups.length; i--;)

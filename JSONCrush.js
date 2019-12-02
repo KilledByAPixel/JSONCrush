@@ -13,17 +13,10 @@ function JSONCrush(string)
         const ByteLength = string=>encodeURI(string).replace(/%../g,'i').length;
         const HasUnmatchedSurrogate = string=>
         {
-            let w1 = 0;
-            for(let i = 0; i < string.length; ++i)
-            {
-                let code = string.charCodeAt(i);
-                let w2 = code >= 0xDC00 && code <= 0xDFFF;
-                if (w1 && !w2 || !w1 && w2)
-                    return true;
-                w1 = code >= 0xD800 && code <= 0xDBFF;
-            }
-            
-            return w1;
+            // check ends of string for unmatched surrogate pairs
+            let c1 = string.charCodeAt(0);
+            let c2 = string.charCodeAt(string.length-1);
+            return (c1 >= 0xDC00 && c1 <= 0xDFFF) || (c2 >= 0xD800 && c2 <= 0xDBFF);
         }
         
         const maxSubstringLength = 50; // speed it up by limiting max length

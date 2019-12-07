@@ -20,11 +20,12 @@ function JSONCrush(string)
         }
         
         const maxSubstringLength = 50; // speed it up by limiting max length
-        let X, B, O, m, i, c, e, N, M, o, t, j, x, R;
+        let X, B, O, m, i, c, e, N, M, o, t, j, x, R,k;
         let Q = characters;
         let s = string;
         X = 1;
         m = '';
+        i=0;
         while(true)
         {
             for (M=N=e=c=0,i=Q.length;!c&&i--;)
@@ -39,8 +40,8 @@ function JSONCrush(string)
                 O=o;
             }
             else for (O=o={},t=1;X&&t<maxSubstringLength;t++)
-                    for (X=i=0;++i<s.length-t;)
-                        if (!HasUnmatchedSurrogate(x=s.substr(j=i,t)))
+                    for (X=k=0;++k<s.length-t;)
+                        if (!HasUnmatchedSurrogate(x=s.substr(j=k,t)))
                             if (!o[x])
                                 if (~(j=s.indexOf(x,j+t)))
                                         for (X=t,o[x]=1;~j;o[x]++)
@@ -58,8 +59,16 @@ function JSONCrush(string)
                 o[x.split(e).join(c)]=1;
             O=o;
             if(!e) break;
-            s=s.split(e).join(c)+c+e
-            m=c+m;
+            let s2 = s.split(e).join(c)+c+e;
+            
+            // check if shorter
+            let length = ByteLength(encodeURIComponent(s));
+            let newLength = ByteLength(encodeURIComponent(s2+c));
+            if (newLength >= length)
+                break;
+            
+            s = s2;
+            m = c+m;
         }
 
         return {a:s, b:m};
@@ -86,27 +95,12 @@ function JSONCrush(string)
             characters.push(String.fromCharCode(i));
     }
     
-    // check if every character is used
-    let allUsed = true;
-    for(let i in characters)
+    // pick from extended set last
+    for (let i=33; i<255; ++i)
     {
-        let c = characters[i];
-        if (!string.includes(c))
-        {
-            allUsed = false;
-            break;
-        }
-    }
-    
-    if (allUsed)
-    {
-        // use extended set if all the unescaped ones are used
-        for (let i=2; i<255; ++i)
-        {
-            let c = String.fromCharCode(i);
-            if (c!='\\' && !characters.includes(c))
-                characters.unshift(c);
-        }
+        let c = String.fromCharCode(i);
+        if (c!='\\' && !characters.includes(c))
+            characters.unshift(c);
     }
     
     // crush with JS crush

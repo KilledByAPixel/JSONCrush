@@ -42,7 +42,7 @@ URI Encoded Component:
 <br>
 <br>
 <br><div id=div_unit_test_results></div>
-<script src="JSONCrush.js?8"></script>
+<script src="JSONCrush.js?9"></script>
 <script>
 
 "use strict"; // strict mode
@@ -100,10 +100,18 @@ function UnitTests()
         let percent = (100*length2/length1).toFixed(2) + '%';
         
         output += '<pre>' + test + '</pre>';
-        if (test == uncrushed)
-            output += 'PASS!' + ' Size Difference: ' + percent;
+        if (test != uncrushed)
+        {
+            output += 'FAIL! '
+            if (error)
+                output += 'Error: ' + error;
+            else
+                output += "Crushed string doesn't match: '" + uncrushed + "'";
+        }
+        else if (length2 > length1)
+            output += 'FAIL! Compressed is larger. ' + ' Size Difference: ' + percent;
         else
-            output += 'FAIL! ' + error;
+            output += 'PASS!' + ' Size Difference: ' + percent;
         output += '<br><br>';   
     }
     
@@ -119,6 +127,7 @@ let unitTests =
 'emojis: 😄🐰🐢 ☂👍☕ ©¥ñ ✌♥☻␌',
 'compressed emojis: aa😄aa😄aa😄aa😄aa🐰🐢🐰🐢🐰🐢🐰🐢🐰🐰🐢🐰🐢🐰🐢🐰🐢🐰🐰🐢🐰🐢🐰🐢🐰🐢🐰',
 'aaaaaaaa',
+'This test should fail because delimiters \u0001\u0001\u0001\u0001 (\\u0001) will be removed.',
 ];
 
 </script>

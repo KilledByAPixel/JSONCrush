@@ -132,7 +132,7 @@ function JSONCrush(string)
     }
 
     // remove delimiter if it is found in the string
-    string = string.replace(new RegExp(delimiter,'g'));
+    string = string.replace(new RegExp(delimiter,'g'),'');
     
     // swap out common json characters
     string = JSONCrushSwap(string);

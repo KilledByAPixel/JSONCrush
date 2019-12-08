@@ -6,10 +6,12 @@
 
 function JSONCrush(string)
 {
+    const maxSubstringLength = 50; // speed it up by limiting max length
+    const delimiter = '\u0001'; // used to split parts of crushed string
+        
     const JSCrush=(string, replaceCharacters)=>
     {
         // JSCrush Algorithm (repleace repeated substrings with single characters)
-        const maxSubstringLength = 50; // speed it up by limiting max length
         let replaceCharacterPos = replaceCharacters.length;
         let splitString = '';
         
@@ -64,6 +66,8 @@ function JSONCrush(string)
                 // calculate change in length of string if it substring was replaced
                 let count = substringCount[substring];
                 let lengthDelta = (count-1)*ByteLength(substring) - (count+1)*replaceByteLength;
+                if (!splitString.length)
+                    lengthDelta -= ByteLength(delimiter); // include the delimeter length 
                 if (lengthDelta <= 0)
                     delete substringCount[substring]
                 else if (lengthDelta > bestLengthDelta)
@@ -127,8 +131,8 @@ function JSONCrush(string)
             characters.push(String.fromCharCode(i));
     }
 
-    // remove \u0001 if it is found in the string so it can be used as a delimiter
-    string = string.replace(/\u0001/g,'');
+    // remove delimiter if it is found in the string
+    string = string.replace(new RegExp(delimiter,'g'));
     
     // swap out common json characters
     string = JSONCrushSwap(string);
@@ -136,10 +140,10 @@ function JSONCrush(string)
     // crush with JS crush
     const crushed = JSCrush(string, characters);
     
-    // use \u0001 as a delimiter between JSCrush parts
+    // insert delimiter between JSCrush parts
     let crushedString = crushed.a;
     if (crushed.b.length)
-        crushedString += '\u0001' + crushed.b;
+        crushedString += delimiter + crushed.b;
     
     // encode URI
     return encodeURIComponent(crushedString);
@@ -149,7 +153,7 @@ function JSONUncrush(string)
 {
     // string must be a decoded URI component, searchParams.get() does this automatically
 
-    // unsplit the string
+    // unsplit the string using the delimiter
     const stringParts = string.split('\u0001');
     
     // JSUncrush algorithm
@@ -171,7 +175,7 @@ function JSONUncrush(string)
     return JSONCrushSwap(uncrushedString, 0);
 }
 
-function JSONCrushSwap(string, forward=true)
+function JSONCrushSwap(string, forward=1)
 {
     // swap out characters for lesser used ones that wont get escaped
     const swapGroups = 

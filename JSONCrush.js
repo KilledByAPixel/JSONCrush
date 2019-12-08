@@ -1,17 +1,20 @@
 /////////////////////////////////////////////////////////////////////// 
 // JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
-// Based on JSCrush - Javascript crusher by @aivopaas. [MIT] http://www.iteral.com/jscrush
 /////////////////////////////////////////////////////////////////////// 
 
 "use strict"; // strict mode
 
 function JSONCrush(string)
 {
-    const JSCrush=(string, characters)=>
+    const JSCrush=(string, replaceCharacters)=>
     {
-        // JSCrush Algorithm (remove repeated substrings)
-        const ByteLength = string=>encodeURI(string).replace(/%../g,'i').length;
-        const HasUnmatchedSurrogate = string=>
+        // JSCrush Algorithm (repleace repeated substrings with single characters)
+        const maxSubstringLength = 50; // speed it up by limiting max length
+        let replaceCharacterPos = replaceCharacters.length;
+        let splitString = '';
+        
+        const ByteLength =(string)=>encodeURI(encodeURIComponent(string)).replace(/%../g,'i').length;
+        const HasUnmatchedSurrogate =(string)=>
         {
             // check ends of string for unmatched surrogate pairs
             let c1 = string.charCodeAt(0);
@@ -19,59 +22,109 @@ function JSONCrush(string)
             return (c1 >= 0xDC00 && c1 <= 0xDFFF) || (c2 >= 0xD800 && c2 <= 0xDBFF);
         }
         
-        const maxSubstringLength = 50; // speed it up by limiting max length
-        let X, B, O, m, i, c, e, N, M, o, t, j, x, R,k;
-        let Q = characters;
-        let s = string;
-        X = 1;
-        m = '';
-        i=0;
-        while(true)
+        // count instances of substrings
+        let substringCount = {};
+        for (let substringLength = 2; substringLength < maxSubstringLength; substringLength++)
+        for (let i = 0; i < string.length - substringLength; ++i)
         {
-            for (M=N=e=c=0,i=Q.length;!c&&i--;)
-                !~s.indexOf(Q[i])&&(c=Q[i]);
-            if (!c) break;
-            if (O)
-            {
-                o={};
-                for (x in O)
-                    for (j=s.indexOf(x),o[x]=0;~j;o[x]++)
-                        j=s.indexOf(x,j+x.length);
-                O=o;
-            }
-            else for (O=o={},t=1;X&&t<maxSubstringLength;t++)
-                    for (X=k=0;++k<s.length-t;)
-                        if (!HasUnmatchedSurrogate(x=s.substr(j=k,t)))
-                            if (!o[x])
-                                if (~(j=s.indexOf(x,j+t)))
-                                        for (X=t,o[x]=1;~j;o[x]++)
-                                            j=s.indexOf(x,j+t);
-            for (let x in O) 
-            {
-                j=ByteLength(x);
-                if (j=(R=O[x])*j-j-(R+1)*ByteLength(c))
-                    (j>M||j==M&&R>N)&&(M=j,N=R,e=x);
-                if (j<1)
-                    delete O[x]
-            }
-            o={};
-            for(let x in O)
-                o[x.split(e).join(c)]=1;
-            O=o;
-            if(!e) break;
-            let s2 = s.split(e).join(c)+c+e;
+            let substring = string.substr(i, substringLength);
+
+            // don't recount if already in list
+            if (substringCount[substring])
+                continue;
+
+            // prevent breaking up unmatched surrogates
+            if (HasUnmatchedSurrogate(substring))
+                continue;
+
+            // count how many times the substring appears
+            let count = 1;
+            for (let substringPos = string.indexOf(substring, i+substringLength); substringPos >= 0; ++count)
+                substringPos = string.indexOf(substring, substringPos + substringLength);
+                
+            // add to list if it appears multiple times
+            if (count > 1)
+                substringCount[substring] = count;
+        }
+        
+        while(true) // loop while string can be crushed more
+        {
+            // get the next character that is not in the string
+            for (;replaceCharacterPos-- && string.includes(replaceCharacters[replaceCharacterPos]);){}
+            if (replaceCharacterPos < 0)
+                break; // ran out of replacement characters
+            let replaceCharacter = replaceCharacters[replaceCharacterPos];
             
-            // check if shorter
-            let length = ByteLength(encodeURIComponent(s));
-            let newLength = ByteLength(encodeURIComponent(s2+c));
-            if (newLength >= length)
-                break;
+            // find the longest substring to replace
+            let bestSubstring;  
+            let bestLengthDelta = 0;  
+            let replaceByteLength = ByteLength(replaceCharacter);
+            for (let substring in substringCount) 
+            {
+                // calculate change in length of string if it substring was replaced
+                let count = substringCount[substring];
+                let lengthDelta = (count-1)*ByteLength(substring) - (count+1)*replaceByteLength;
+                if (lengthDelta <= 0)
+                    delete substringCount[substring]
+                else if (lengthDelta > bestLengthDelta)
+                {
+                    bestSubstring = substring
+                    bestLengthDelta = lengthDelta;
+                }
+            }
+            if (!bestSubstring)
+                break; // string can't be compressed further
+                
+            // create new string with the split character
+            string = string.split(bestSubstring).join(replaceCharacter) + replaceCharacter + bestSubstring;
+            splitString = replaceCharacter + splitString;
             
-            s = s2;
-            m = c+m;
+            // update substring count list after the replacement
+            let newSubstringCount = {};
+            for (let substring in substringCount)
+            {
+                // make a new substring with the replacement
+                let newSubstring = substring.split(bestSubstring).join(replaceCharacter);
+                
+                // count how many times the new substring appears
+                let count = 0;
+                for (let i = string.indexOf(newSubstring); i >= 0; ++count)
+                    i = string.indexOf(newSubstring, i + newSubstring.length);
+                    
+                // add to list if it appears multiple times
+                if (count > 1)
+                    newSubstringCount[newSubstring] = count;
+                
+            }
+            substringCount = newSubstringCount;
         }
 
-        return {a:s, b:m};
+        return {a:string, b:splitString};
+    }
+    
+    // create a string of replacement characters
+    let characters = [];
+    
+    // pick from extended set last
+    for (let i=255; i>32; --i)
+    {
+        let c = String.fromCharCode(i);
+        if (c!='\\' && !characters.includes(c))
+            characters.push(c);
+    }
+    
+    // prefer replacing with characters that will not be escaped by encodeURIComponent
+    const unescapedCharacters = `-_.!~*'()`;
+    for (let i=127; --i;)
+    {
+        if 
+        (
+            (i>=48 && i<=57) || // 0-9
+            (i>=65 && i<=90) || // A-Z
+            (i>=97 && i<=122)|| // a-z
+            unescapedCharacters.includes(String.fromCharCode(i))
+        )
+            characters.push(String.fromCharCode(i));
     }
 
     // remove \u0001 if it is found in the string so it can be used as a delimiter
@@ -80,34 +133,13 @@ function JSONCrush(string)
     // swap out common json characters
     string = JSONCrushSwap(string);
     
-    // create a string of characters that will not be escaped by encodeURIComponent
-    let characters = [];
-    const unescapedCharacters = `-_.!~*'()`;
-    for (let i=127; --i;)
-    {
-        if 
-        (
-            (i>=48&&i<=57) || // 0-9
-            (i>=65&&i<=90) || // A-Z
-            (i>=97&&i<=122)|| // a-z
-            unescapedCharacters.includes(String.fromCharCode(i))
-        )
-            characters.push(String.fromCharCode(i));
-    }
-    
-    // pick from extended set last
-    for (let i=33; i<255; ++i)
-    {
-        let c = String.fromCharCode(i);
-        if (c!='\\' && !characters.includes(c))
-            characters.unshift(c);
-    }
-    
     // crush with JS crush
     const crushed = JSCrush(string, characters);
     
-    // use \u0001 as a delimiter between JSCrush parts 
-    const crushedString = crushed.a + '\u0001' + crushed.b;
+    // use \u0001 as a delimiter between JSCrush parts
+    let crushedString = crushed.a;
+    if (crushed.b.length)
+        crushedString += '\u0001' + crushed.b;
     
     // encode URI
     return encodeURIComponent(crushedString);
@@ -118,19 +150,25 @@ function JSONUncrush(string)
     // string must be a decoded URI component, searchParams.get() does this automatically
 
     // unsplit the string
-    const splitString = string.split('\u0001');
+    const stringParts = string.split('\u0001');
     
     // JSUncrush algorithm
-    let a = splitString[0];
-    let b = splitString[1];
-    for(let c in b)
+    let uncrushedString = stringParts[0];
+    if (stringParts.length > 1)
     {
-        let d = a.split(b[c]);
-        a = d.join(d.pop());
+        let splitString = stringParts[1];
+        for (let character of splitString)
+        {
+            // split the string using the current splitCharacter
+            let splitArray = uncrushedString.split(character);
+
+            // rejoin the string with the last element from the split
+            uncrushedString = splitArray.join(splitArray.pop());
+        }
     }
     
     // unswap the json characters in reverse direction
-    return JSONCrushSwap(a, 0);
+    return JSONCrushSwap(uncrushedString, 0);
 }
 
 function JSONCrushSwap(string, forward=true)
@@ -153,10 +191,10 @@ function JSONCrushSwap(string, forward=true)
 
     // need to be able to swap characters in reverse direction for uncrush
     if (forward)
-        for (let i=0; i<swapGroups.length; ++i)
+        for (let i = 0; i < swapGroups.length; ++i)
             string = Swap(string, swapGroups[i]);
     else
-        for (let i=swapGroups.length; i--;)
+        for (let i = swapGroups.length; i--;)
             string = Swap(string, swapGroups[i]);
 
     return string;

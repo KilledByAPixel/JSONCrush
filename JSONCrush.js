@@ -109,14 +109,6 @@ function JSONCrush(string)
     // create a string of replacement characters
     let characters = [];
     
-    // pick from extended set last
-    for (let i=255; i>32; --i)
-    {
-        let c = String.fromCharCode(i);
-        if (c!='\\' && !characters.includes(c))
-            characters.push(c);
-    }
-    
     // prefer replacing with characters that will not be escaped by encodeURIComponent
     const unescapedCharacters = `-_.!~*'()`;
     for (let i=127; --i;)
@@ -129,6 +121,14 @@ function JSONCrush(string)
             unescapedCharacters.includes(String.fromCharCode(i))
         )
             characters.push(String.fromCharCode(i));
+    }
+    
+    // pick from extended set last
+    for (let i=32; i<255; ++i)
+    {
+        let c = String.fromCharCode(i);
+        if (c!='\\' && !characters.includes(c))
+            characters.unshift(c);
     }
 
     // remove delimiter if it is found in the string

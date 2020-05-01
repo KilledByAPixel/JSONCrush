@@ -3,7 +3,7 @@
 This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm.
 
 * Strings are processed to swap out common json characters with ones that won't be escaped.
-* The JSCrush algorithm helps to eliminate repeated substrings similar to the zip algorithm.
+* The JSCrush algorithm eliminates repeated substrings similar to the zip algorithm.
 * This can be used to compress any type of string but is optimized for uri encoded JSON.
 * The algorithm speed is reasonable for most cases but can be slow for long strings (>10K characters).
 * The character \u0001 (start of heading) is used as a delimiter and will be removed if it appears.

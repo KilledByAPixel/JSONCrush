@@ -2,7 +2,7 @@
 // JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 /////////////////////////////////////////////////////////////////////// 
 
-"use strict"; // strict mode
+"use strict";
 
 function JSONCrush(string)
 {
@@ -67,7 +67,7 @@ function JSONCrush(string)
                 let count = substringCount[substring];
                 let lengthDelta = (count-1)*ByteLength(substring) - (count+1)*replaceByteLength;
                 if (!splitString.length)
-                    lengthDelta -= ByteLength(delimiter); // include the delimeter length 
+                    lengthDelta -= ByteLength(delimiter); // include the delimiter length 
                 if (lengthDelta <= 0)
                     delete substringCount[substring]
                 else if (lengthDelta > bestLengthDelta)
@@ -145,6 +145,9 @@ function JSONCrush(string)
     if (crushed.b.length)
         crushedString += delimiter + crushed.b;
     
+    // fix issues with some links not being recognized properly
+    crushedString += '_'
+    
     // encode URI
     return encodeURIComponent(crushedString);
 }
@@ -152,6 +155,9 @@ function JSONCrush(string)
 function JSONUncrush(string)
 {
     // string must be a decoded URI component, searchParams.get() does this automatically
+    
+    // remove last character
+    string = string.substring(0, string.length - 1);
 
     // unsplit the string using the delimiter
     const stringParts = string.split('\u0001');

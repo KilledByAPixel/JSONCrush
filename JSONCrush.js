@@ -4,7 +4,7 @@
 
 "use strict";
 
-function JSONCrush(string)
+const JSONCrush=(string)=>
 {
     const maxSubstringLength = 50; // speed it up by limiting max length
     const delimiter = '\u0001'; // used to split parts of crushed string
@@ -152,7 +152,7 @@ function JSONCrush(string)
     return encodeURIComponent(crushedString);
 }
 
-function JSONUncrush(string)
+const JSONUncrush=(string)=>
 {
     // string must be a decoded URI component, searchParams.get() does this automatically
     
@@ -181,7 +181,7 @@ function JSONUncrush(string)
     return JSONCrushSwap(uncrushedString, 0);
 }
 
-function JSONCrushSwap(string, forward=1)
+const JSONCrushSwap=(string, forward=1)=>
 {
     // swap out characters for lesser used ones that wont get escaped
     const swapGroups = 

@@ -4,5 +4,5 @@
   "homepage" : "https://github.com/KilledByAPixel/JSONCrush",
   "keywords" : ["json", "compression", "url-shortener"],
   "main" : "JSONCrush.min.js",
-  "version" : "1.0"
+  "version" : "1.0.1"
 }

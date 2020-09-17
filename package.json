@@ -1,8 +1,0 @@
-{
-  "name" : "JSONCrush",
-  "description" : "Compress JSON into URL friendly strings.",
-  "homepage" : "https://github.com/KilledByAPixel/JSONCrush",
-  "keywords" : ["json", "compression", "url-shortener"],
-  "main" : "JSONCrush.min.js",
-  "version" : "1.0.2"
-}

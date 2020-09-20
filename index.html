@@ -15,7 +15,7 @@ GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
 <body>
 <big>JSONCrush Demo - Compress JSON into URL friendly strings</big>
 <br>
-<br>This simple system allows for excellent compression of uri encoded JSON strings using JSCrush.
+<br>This simple system allows for excellent compression of URI encoded JSON strings using JSCrush.
 <br>No additional libraries are used and minified code is less than 2k.
 <br>
 <br><a href="JSONCrush.js" target="_blank">Download JSONCrush.js</a>
@@ -42,7 +42,7 @@ URI Encoded Component:
 <br>
 <br>
 <br><div id=div_unit_test_results></div>
-<script src="JSONCrush.js?11"></script>
+<script src="JSONCrush.js?12"></script>
 <script>
 
 "use strict";
@@ -108,10 +108,10 @@ function UnitTests()
             else
                 output += "Crushed string doesn't match: '" + uncrushed + "'";
         }
-        else if (length2 > length1)
-            output += 'FAIL! Compressed is larger. ' + ' Size Difference: ' + percent;
         else
             output += 'PASS!' + ' Size Difference: ' + percent;
+        if (length2 > length1)
+            output += ' Compressed is larger!';
         output += '<br><br>';   
     }
     

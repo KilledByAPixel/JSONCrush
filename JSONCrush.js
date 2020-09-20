@@ -4,9 +4,9 @@
 
 "use strict";
 
-const JSONCrush=(string)=>
+const JSONCrush=(string, maxSubstringLength)=>
 {
-    const maxSubstringLength = 50; // speed it up by limiting max length
+    maxSubstringLength = maxSubstringLength || 50; // speed it up by limiting max length
     const delimiter = '\u0001'; // used to split parts of crushed string
         
     const JSCrush=(string, replaceCharacters)=>

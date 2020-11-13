@@ -1,0 +1,34 @@
+{
+  "name": "jsoncrush",
+  "version": "0.1.0",
+  "description": "Compress JSON in URL friendly strings",
+  "main": "lib/JSONCrush.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "babel ./JSONCrush.js --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KilledByAPixel/JSONCrush.git"
+  },
+  "keywords": [
+    "JSON",
+    "compression"
+  ],
+  "author": "KilledByAPixel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KilledByAPixel/JSONCrush/issues"
+  },
+  "homepage": "https://github.com/KilledByAPixel/JSONCrush#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}

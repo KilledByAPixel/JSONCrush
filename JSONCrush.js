@@ -11,7 +11,7 @@
 // @output_file_name JSONCrush.min.js
 // ==/ClosureCompiler==
 
-const JSONCrush=(string, maxSubstringLength=50)=>
+export const JSONCrush=(string, maxSubstringLength=50)=>
 {
     const delimiter = '\u0001'; // used to split parts of crushed string
         
@@ -158,7 +158,7 @@ const JSONCrush=(string, maxSubstringLength=50)=>
     return encodeURIComponent(crushedString);
 }
 
-const JSONUncrush=(string)=>
+export const JSONUncrush=(string)=>
 {
     // string must be a decoded URI component, searchParams.get() does this automatically
     

@@ -1,0 +1,14 @@
+# System files
+.DS_Store
+
+# Dependencies
+/node_modules
+
+# Generated artifacts
+/coverage
+/build
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

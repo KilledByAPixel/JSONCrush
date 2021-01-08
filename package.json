@@ -1,0 +1,38 @@
+{
+  "name": "JSONCrush",
+  "version": "1.0.1",
+  "description": "Compress JSON in URL friendly strings",
+  "main": "dist/JSONCrush.cjs.js",
+  "module": "dist/JSONCrush.esm.js",
+  "browser": "dist/JSONCrush.umd.js",
+  "types": "JSONCrush.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "preinstall": "npm install --ignore-scripts && npm run build"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KilledByAPixel/JSONCrush.git"
+  },
+  "keywords": [
+    "JSON",
+    "URL",
+    "URI",
+    "compression"
+  ],
+  "author": "KilledByAPixel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KilledByAPixel/JSONCrush/issues"
+  },
+  "homepage": "https://github.com/KilledByAPixel/JSONCrush",
+  "devDependencies": {
+    "graceful-fs": "^4.2.4",
+    "rollup": "^2.36.1"
+  },
+  "dependencies": {}
+}

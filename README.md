@@ -11,9 +11,26 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 # [TRY THE LIVE DEMO!](https://killedbyapixel.github.io/JSONCrush)
 
+# Install
+
+```bash
+npm install https://github.com/KilledByAPixel/JSONCrush.git
+```
+
+`npm install` creates modules for Common JS, ES Module, and UMD modules in `/dist` folder.
+
+Alternatively, include JSONCrush.js or JSONCrush.min.js in your script;
+
 # How to Use
 
-* Include JSONCrush.js or JSONCrush.min.js in your script
+```js
+//NodeJS: Require
+const {JSONCrush, JSONUncrush} = require('JSONCrush');
+
+//ES Module import
+import {JSONCrush, JSONUncrush} from 'JSONCrush';
+```
+
 * Pass a JSON string to JSONCrush to compress it into an encoded URI component.
 * This result can be safely used in a URL.
 * To decode, first call searchParams.get() or decodeURIComponent() on the string before uncrushing.

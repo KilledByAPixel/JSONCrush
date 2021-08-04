@@ -42,14 +42,15 @@ function RunDemo()
     const stringToCrush = textarea_JSON.value;
 
     // Just call JSON crush to crush your string!
-    const crushed = textarea_crushed_uri.value = JSONCrush.crush(stringToCrush);
+    const crushed = JSONCrush.crush(stringToCrush);
 
     // To uncrush call JSONUncrush on the crushed string.
     const uncrushed = JSONCrush.uncrush(crushed);
-    textarea_uncrushed.value = uncrushed;
 
     // We can verify that the uncrushed string matches the orginal string
     div_crush_result.innerHTML = stringToCrush == uncrushed? "SUCCESS: Strings match!" : "ERROR: Strings don't match!";
+    textarea_crushed_uri.value = crushed;
+    textarea_uncrushed.value = uncrushed;
 }
 
 function PreformUnitTests()

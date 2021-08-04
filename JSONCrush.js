@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////// 
-// JSONCrush v1.1 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
+// JSONCrush v1.11 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 /////////////////////////////////////////////////////////////////////// 
 
 "use strict";
@@ -7,11 +7,13 @@
 // ==ClosureCompiler==
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // @language_out ECMASCRIPT_2019
-// @js_externs JSONCrush, JSONUncrush, JSONCrushSwap
-// @output_file_name JSONCrush.min.js
+// @js_externs JSONCrush, JSONCrush.crush, JSONCrush.uncrush, JSONCrush.swap
 // ==/ClosureCompiler==
 
-const JSONCrush=(string, maxSubstringLength=50)=>
+export const JSONCrush =
+{
+
+crush: function(string, maxSubstringLength=50)
 {
     const delimiter = '\u0001'; // used to split parts of crushed string
     const JSCrush=(string, replaceCharacters)=>
@@ -140,7 +142,7 @@ const JSONCrush=(string, maxSubstringLength=50)=>
     string = string.replace(new RegExp(delimiter,'g'),'');
     
     // swap out common json characters
-    string = JSONCrushSwap(string);
+    string = this.swap(string);
     
     // crush with JS crush
     const crushed = JSCrush(string, characters);
@@ -155,9 +157,9 @@ const JSONCrush=(string, maxSubstringLength=50)=>
     
     // return crushed string
     return crushedString;
-}
+},
 
-const JSONUncrush=(string)=>
+uncrush: function(string)
 {
     // remove last character
     string = string.substring(0, string.length - 1);
@@ -181,10 +183,10 @@ const JSONUncrush=(string)=>
     }
     
     // unswap the json characters in reverse direction
-    return JSONCrushSwap(uncrushedString, 0);
-}
+    return this.swap(uncrushedString, 0);
+},
 
-const JSONCrushSwap=(string, forward=1)=>
+swap: function(string, forward=1)
 {
     // swap out characters for lesser used ones that wont get escaped
     const swapGroups = 
@@ -196,7 +198,7 @@ const JSONCrushSwap=(string, forward=1)=>
         ['{', "(", '\\', '\\'],
     ];
     
-    const Swap=(string, g)=>
+    const swapInternal=(string, g)=>
     {
         let regex = new RegExp(`${(g[2]?g[2]:'')+g[0]}|${(g[3]?g[3]:'')+g[1]}`,'g');
         return string.replace(regex, $1 => ($1 === g[0] ? g[1] : g[0]));
@@ -205,10 +207,12 @@ const JSONCrushSwap=(string, forward=1)=>
     // need to be able to swap characters in reverse direction for uncrush
     if (forward)
         for (let i = 0; i < swapGroups.length; ++i)
-            string = Swap(string, swapGroups[i]);
+            string = swapInternal(string, swapGroups[i]);
     else
         for (let i = swapGroups.length; i--;)
-            string = Swap(string, swapGroups[i]);
+            string = swapInternal(string, swapGroups[i]);
 
     return string;
 }
+
+} // JSONCrush

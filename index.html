@@ -1,12 +1,12 @@
 <!doctype html>
 <!--
 
-JSONCrush v1.1 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
+JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 - Based on JavaScript Crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
 - GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com
 
 -->
-<html><head><title>JSONCrush Demo</title></head><body>
+<html><head><title>JSONCrush Demo</title></head><body></body>
 <h1>JSONCrush Demo - Compress JSON into URL friendly strings</h1>
 This simple system allows for excellent compression of URI encoded JSON strings using JSCrush.
 <br>No additional libraries are used and minified code is less than 2k.
@@ -23,7 +23,13 @@ This simple system allows for excellent compression of URI encoded JSON strings 
 <div id=div_crush_result></div>
 <br><button onclick=PreformUnitTests()>Preform Unit Tests</button>
 <br><br><br><div id=div_unit_test_results></div>
-<script src="JSONCrush.js?14"></script>
+<script type=module>
+
+// load JSONCrush module into global scope
+import {JSONCrush} from './JSONCrush.js';
+window.JSONCrush = JSONCrush;
+
+</script>
 <script>
 
 "use strict";
@@ -36,10 +42,10 @@ function RunDemo()
     const stringToCrush = textarea_JSON.value;
 
     // Just call JSON crush to crush your string!
-    const crushed = textarea_crushed_uri.value = JSONCrush(stringToCrush);
+    const crushed = textarea_crushed_uri.value = JSONCrush.crush(stringToCrush);
 
     // To uncrush call JSONUncrush on the crushed string.
-    const uncrushed = JSONUncrush(crushed);
+    const uncrushed = JSONCrush.uncrush(crushed);
     textarea_uncrushed.value = uncrushed;
 
     // We can verify that the uncrushed string matches the orginal string
@@ -56,8 +62,8 @@ function PreformUnitTests()
         
         try
         {
-            crushed = JSONCrush(testString);
-            uncrushed = JSONUncrush(crushed);
+            crushed = JSONCrush.crush(testString);
+            uncrushed = JSONCrush.uncrush(crushed);
         }
         catch (e) { error = e.message; }
         

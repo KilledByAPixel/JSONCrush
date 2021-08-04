@@ -13,9 +13,10 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 # How to Use
 
-* Include JSONCrush.js or JSONCrush.min.js in your script
-* Just pass a JSON string to JSONCrush to compress it!
-* To decode just pass the crushed string to JSONUncrush.
+* Import JSONCrush as a module to your JavaScript program.
+* Just pass a JSON string to JSONCrush.crush() to compress it!
+* To decode just pass the crushed string to JSONCrush.uncrush().
+* See [index.html](https://github.com/KilledByAPixel/JSONCrush/blob/master/index.html) for a demonstration.
 
 # Why?
 

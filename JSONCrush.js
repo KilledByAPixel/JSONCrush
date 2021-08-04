@@ -7,7 +7,7 @@
 // ==ClosureCompiler==
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // @language_out ECMASCRIPT_2019
-// @js_externs JSONCrush, JSONCrush.crush, JSONCrush.uncrush, JSONCrush.swap
+// @js_externs JSONCrush, JSONCrush.crush, JSONCrush.uncrush
 // ==/ClosureCompiler==
 
 export const JSONCrush =
@@ -142,7 +142,7 @@ crush: function(string, maxSubstringLength=50)
     string = string.replace(new RegExp(delimiter,'g'),'');
     
     // swap out common json characters
-    string = this.swap(string);
+    string = JSONCrushSwap(string);
     
     // crush with JS crush
     const crushed = JSCrush(string, characters);
@@ -183,10 +183,12 @@ uncrush: function(string)
     }
     
     // unswap the json characters in reverse direction
-    return this.swap(uncrushedString, 0);
-},
+    return JSONCrushSwap(uncrushedString, 0);
+}
 
-swap: function(string, forward=1)
+} // JSONCrush
+
+const JSONCrushSwap = (string, forward=1)=>
 {
     // swap out characters for lesser used ones that wont get escaped
     const swapGroups = 
@@ -214,5 +216,3 @@ swap: function(string, forward=1)
 
     return string;
 }
-
-} // JSONCrush

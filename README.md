@@ -14,10 +14,8 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 # How to Use
 
 * Include JSONCrush.js or JSONCrush.min.js in your script
-* Pass a JSON string to JSONCrush to compress it into an encoded URI component.
-* This result can be safely used in a URL.
-* To decode, first call searchParams.get() or decodeURIComponent() on the string before uncrushing.
-* Then pass the decoded URI component string to JSONUncrush.
+* Just pass a JSON string to JSONCrush to compress it!
+* To decode just pass the crushed string to JSONUncrush.
 
 # Why?
 
@@ -29,7 +27,7 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 
 * `{"students":[{"name":"Jack","age":17},{"name":"Jill","age":16},{"name":"Sue","age":16}],"class":"math"}`
 
-### URI Encoded Component - 199 bytes
+### URI Encoded - 199 bytes
 
 * `%7B%22students%22%3A%5B%7B%22name%22%3A%22Jack%22%2C%22age%22%3A17%7D%2C%7B%22name%22%3A%22Jill%22%2C%22age%22%3A16%7D%2C%7B%22name%22%3A%22Sue%22%2C%22age%22%3A16%7D%5D%2C%22class%22%3A%22math%22%7D`
 

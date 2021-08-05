@@ -1,8 +1,9 @@
 {
   "name": "jsoncrush",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Compress JSON in URL friendly strings",
   "main": "JSONCrush.js",
+  "types": "JSONCrush.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,16 +1,10 @@
 /////////////////////////////////////////////////////////////////////// 
-// JSONCrush v1.1.2 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
+// JSONCrush v1.1.3 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 /////////////////////////////////////////////////////////////////////// 
 
-"use strict";
+'use strict';
 
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// @language_out ECMASCRIPT_2019
-// @js_externs JSONCrush, JSONCrush.crush, JSONCrush.uncrush
-// ==/ClosureCompiler==
-
-export const JSONCrush =
+export default
 {
 
 crush: function(string, maxSubstringLength=50)

@@ -1,5 +1,5 @@
 // Typescript type definition for JSONCrush
-type JSONCrush = {
+declare const JSONCrush: {
   crush(input: string, maxSubstringLength?: number): string,
   uncrush(input: string): string
 };

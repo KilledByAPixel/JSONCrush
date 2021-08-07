@@ -1,13 +1,13 @@
-/////////////////////////////////////////////////////////////////////// 
-// JSONCrush v1.1.3 by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
-/////////////////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////////////////////////// 
+// JSONCrush v1.1.3 by Frank Force - https://github.com/KilledByAPixel/JSONCrush
+///////////////////////////////////////////////////////////////////////////////// 
 
 'use strict';
 
 export default
 {
 
-crush: function(string, maxSubstringLength=50)
+crush: (string, maxSubstringLength=50)=>
 {
     const delimiter = '\u0001'; // used to split parts of crushed string
     const JSCrush=(string, replaceCharacters)=>
@@ -153,7 +153,7 @@ crush: function(string, maxSubstringLength=50)
     return crushedString;
 },
 
-uncrush: function(string)
+uncrush: (string)=>
 {
     // remove last character
     string = string.substring(0, string.length - 1);

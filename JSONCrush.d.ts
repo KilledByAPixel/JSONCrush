@@ -1,5 +1,6 @@
 // Typescript type definition for JSONCrush
-export default class {
-  crush(input: string, maxSubstringLength?: number): string;
-  uncrush(input: string): string;
+type JSONCrush = {
+  crush(input: string, maxSubstringLength?: number): string,
+  uncrush(input: string): string
 };
+export default JSONCrush;

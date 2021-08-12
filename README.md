@@ -68,5 +68,3 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 
 Using Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
-
-GitHub Corner is Copyright (c) 2016 Tim Holman - http://tholman.com

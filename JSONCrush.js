@@ -147,7 +147,8 @@ crush: (string, maxSubstringLength=50)=>
         crushedString += delimiter + crushed.b;
     
     // fix issues with some links not being recognized properly
-    crushedString += '_'
+    // insert an extra character at the end to make it safe
+    crushedString += 'J';
     
     // return crushed string
     return crushedString;

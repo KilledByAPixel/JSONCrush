@@ -4,6 +4,7 @@
   "description": "Compress JSON in URL friendly strings",
   "main": "JSONCrush.js",
   "types": "JSONCrush.d.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,6 +1,11 @@
 # JSONCrush - Compress JSON into URL friendly strings
 
-This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm.
+[![NPM Package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![NPM Downloads][npm-downloads]][npmtrends-url]
+[![DeepScan][deepscan]][deepscan-url]
+
+This simple system allows for excellent compression of uri encoded JSON strings using the JSCrush algorithm!
 
 * The JSCrush algorithm eliminates repeated substrings similar to the zip algorithm.
 * Strings are processed to swap out common json characters with ones that won't be escaped in the URL.
@@ -69,3 +74,12 @@ This simple system allows for excellent compression of uri encoded JSON strings 
 JSONCrush by Frank Force [MIT] https://github.com/KilledByAPixel/JSONCrush
 
 Using Javascript crusher by @aivopaas [MIT] http://www.iteral.com/jscrush
+
+[npm]: https://img.shields.io/npm/v/jsoncrush
+[npm-url]: https://www.npmjs.com/package/jsoncrush
+[build-size]: https://img.shields.io/bundlephobia/minzip/jsoncrush
+[build-size-url]: https://bundlephobia.com/result?p=jsoncrush
+[npm-downloads]: https://img.shields.io/npm/dw/jsoncrush
+[npmtrends-url]: https://www.npmtrends.com/jsoncrush
+[deepscan]: https://deepscan.io/api/teams/22950/projects/29522/branches/946990/badge/grade.svg
+[deepscan-url]: https://deepscan.io/dashboard/#view=project&tid=22950&pid=29522&bid=946990
